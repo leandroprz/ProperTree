@@ -23,6 +23,13 @@ except NameError:  # Python 3
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from Scripts import plist, plistwindow, downloader
 
+# HiDPI fix for Windows 10/11
+if os.name == 'nt':
+    try:
+        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    except:
+        pass
+
 def _check_for_update(queue, version_url = None, user_initiated = False):
     args = [sys.executable]
     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)),"Scripts","update_check.py")
